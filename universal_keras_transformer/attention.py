@@ -279,6 +279,13 @@ class MultiHeadAttention(_BaseMultiHeadAttention):
         return self.attention(pre_q, pre_v, pre_k, query_seq_len, d_model,
                               training=kwargs.get('training'))
 
+    def compute_output_shape(self, input_shape):
+        if not (isinstance(input_shape, list) and len(input_shape) == 2):
+            raise ValueError(
+                'You must call this layer passing a list of two tensors'
+                '(for keys/values and queries)')
+        return input_shape[1]
+
 
 class MultiHeadSelfAttention(_BaseMultiHeadAttention):
     """
@@ -289,8 +296,10 @@ class MultiHeadSelfAttention(_BaseMultiHeadAttention):
 
     # noinspection PyAttributeOutsideInit
     def build(self, input_shape):
-        if not isinstance(input_shape, tuple):
-            raise ValueError('Invalid input')
+        print(f"input_shpae: {input_shape}")
+        print(f"input_shpae type: {type(input_shape)}")
+        #if not isinstance(input_shape, tuple):
+        #    raise ValueError('Invalid input')
         d_model = input_shape[-1]
         self.validate_model_dimensionality(d_model)
         # These weights are concatenated matrices W_q, W_k and W_v which
@@ -307,9 +316,9 @@ class MultiHeadSelfAttention(_BaseMultiHeadAttention):
         return super().build(input_shape)
 
     def call(self, inputs, **kwargs):
-        if not K.is_tensor(inputs):
-            raise ValueError(
-                'The layer can be called only with one tensor as an argument')
+        #if not K.is_keras_tensor(inputs):
+        #    raise ValueError(
+        #        'The layer can be called only with one tensor as an argument')
         _, seq_len, d_model = K.int_shape(inputs)
         # The first thing we need to do is to perform affine transformations
         # of the inputs to get the Queries, the Keys and the Values.

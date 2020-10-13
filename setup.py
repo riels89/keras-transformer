@@ -5,7 +5,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='keras_transformer',
+    name='universal_keras_transformer',
     # This allows to use git/hg to auto-generate new versions
     use_scm_version={"root": ".", "relative_to": __file__},
     setup_requires=['setuptools_scm'],

@@ -13,7 +13,7 @@ from keras import initializers
 from keras import backend as K
 from keras.utils import get_custom_objects
 
-from keras_transformer.attention import MultiHeadSelfAttention
+from universal_keras_transformer.attention import MultiHeadSelfAttention
 
 
 def gelu(x):
