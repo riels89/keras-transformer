@@ -5,4 +5,4 @@ dist/
 .pytest_cache/
 .DS_Store
 tensorboard_log/
-universal-keras-transform.egg-info:w
+universal-keras-transform.egg-info
